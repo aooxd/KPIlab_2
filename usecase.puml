@@ -1,0 +1,39 @@
+```plantuml
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Читач" as Reader
+actor "Бібліотекар" as Librarian
+actor "Адміністратор" as Admin
+Admin --|> Librarian
+
+rectangle "Інформаційна система бібліотеки" {
+  usecase "UC-01\nЗнайти книгу в каталозі" as UC01
+  usecase "UC-02\nПереглянути свої видачі" as UC02
+  usecase "UC-03\nЗареєструвати читача" as UC03
+  usecase "UC-04\nОформити видачу примірника" as UC04
+  usecase "UC-05\nПрийняти повернення" as UC05
+  usecase "UC-06\nПереглянути прострочені видачі" as UC06
+  usecase "UC-07\nВести каталог книг" as UC07
+  usecase "UC-08\nКерувати обліковими\nзаписами персоналу" as UC08
+  usecase "UC-09\nЗафіксувати пошкодження\nпримірника" as UC09
+}
+
+Reader --> UC01
+Reader --> UC02
+Librarian --> UC03
+Librarian --> UC04
+Librarian --> UC05
+Librarian --> UC06
+Librarian --> UC07
+Admin --> UC08
+
+UC04 ..> UC01 : <<include>>
+UC09 ..> UC05 : <<extend>>
+note right of UC09
+  extension point UC-05:
+  "стан примірника при поверненні"
+end note
+@enduml
+```
